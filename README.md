@@ -1,97 +1,88 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Responsive Dashboard App - Lab 4
 
-# Getting Started
+## Student Information
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+- **Name:** Reynard Fitzgerald Milson
+- **Student ID:** N01691494
+- **Course:** CPAN 213
+- **Lab:** Lab 4 - Responsive Layouts with Flexbox
+- **Date:** September 23, 2025
 
-## Step 1: Start Metro
+## Project Description
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+This responsive dashboard application demonstrates advanced Flexbox layout techniques,
+responsive design patterns, and platform-specific styling in React Native.
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+## Features Implemented
 
-```sh
-# Using npm
-npm start
+- Responsive grid system with breakpoint detection
+- Dashboard widgets with statistics and trends
+- Orientation-aware layouts
+- Platform-specific styling (iOS/Android)
+- Pull-to-refresh functionality
+- Performance-optimized StyleSheets
 
-# OR using Yarn
-yarn start
-```
+## Technologies Used
 
-## Step 2: Build and run your app
+- React Native 0.72+
+- React Native Orientation Locker
+- React Native Vector Icons
+- Platform-specific APIs
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+## Installation
 
-### Android
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Install iOS pods (macOS only): `cd ios && pod install`
+4. Run on Android: `npx react-native run-android`
+5. Run on iOS: `npx react-native run-ios`
 
-```sh
-# Using npm
-npm run android
+## Project Structure
 
-# OR using Yarn
-yarn android
-```
+src/
+├── components/
+│ ├── DashboardHeader.js
+│ ├── ResponsiveGrid.js
+│ └── widgets/
+│ ├── BaseWidget.js
+│ └── StatisticWidget.js
+├── screens/
+│ └── DashboardScreen.js
+├── styles/
+│ └── theme.js
+└── utils/
+ └── responsive.js
 
-### iOS
+## Responsive Breakpoints
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+- Small phones: < 350px
+- Medium phones: 350-400px
+- Large phones: 400-500px
+- Tablets: 500-768px
+- Large tablets: > 768px
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+## Grid Columns by Device
 
-```sh
-bundle install
-```
+- Small: 1 column
+- Medium: 2 columns
+- Tablet Portrait: 2 columns
+- Tablet Landscape: 3-4 columns
 
-Then, and every time you update your native dependencies, run:
+## Performance Notes
 
-```sh
-bundle exec pod install
-```
+- All animations run at 60fps
+- StyleSheet.create used for all styles
+- Memoization applied where necessary
+- Native driver enabled for animations
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+## Screenshots
 
-```sh
-# Using npm
-npm run ios
+See `/screenshots` folder for app images on different devices.
 
-# OR using Yarn
-yarn ios
-```
+## Known Issues
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+- Application may experience minor lag or stuttering during screen orientation changes or when scrolling through a large number of widgets.
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+## Future Enhancements
 
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+[List potential improvements or features to add]
