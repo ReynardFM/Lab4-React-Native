@@ -26,7 +26,9 @@ const ResponsiveGrid = ({
     spacing = theme.spacing.sm,
     contentContainerStyle,
 }) => {
+    // State to hold the number of columns.
     const [columns, setColumns] = useState(numColumns || getGridColumns());
+    // State to hold the screen width.
     const [screenWidth, setScreenWidth] = useState(Dimensions.get('window').width);
 
     useEffect(() => {
@@ -42,13 +44,13 @@ const ResponsiveGrid = ({
             }
         };
 
-        // Initial calculation
+        // Initial calculation of the layout.
         updateLayout();
 
-        // Subscribe to dimension changes
+        // Subscribe to dimension changes to update the layout when the screen is rotated.
         const subscription = Dimensions.addEventListener('change', updateLayout);
 
-        // Unsubscribe on component unmount
+        // Unsubscribe from the event listener when the component unmounts to prevent memory leaks.
         return () => {
             subscription?.remove();
         };
@@ -61,18 +63,24 @@ const ResponsiveGrid = ({
         }
     }, [numColumns]);
 
+    /**
+     * Renders a single row of the grid.
+     * @param {Array<object>} rowData - The data for the current row.
+     * @param {number} rowIndex - The index of the current row.
+     * @returns {React.ReactElement} The rendered row.
+     */
     const renderRow = (rowData, rowIndex) => {
-        console.log("Render Again");
         return (
             <View key={rowIndex} style={[styles.row, { marginHorizontal: spacing / 2 }]}>
                 {rowData.map((item, itemIndex) => {
                     // If an item is null, render an empty view to maintain the grid structure.
+                    // This is important for the last row if it's not full.
                     if (!item) {
                         return <View key={itemIndex} style={[styles.item, { flex: 1 }]} />;
                     }
                     return (
                         <View
-                            key={`empty-${rowIndex}-${itemIndex}`}
+                            key={item.id || `empty-${rowIndex}-${itemIndex}`}
                             style={[
                                 styles.item,
                                 {
@@ -123,4 +131,6 @@ const styles = StyleSheet.create({
         height:"25%",   
     },
 });
-export default ResponsiveGrid;
+
+// Wrap the component in React.memo to prevent unnecessary re-renders.
+export default React.memo(ResponsiveGrid);

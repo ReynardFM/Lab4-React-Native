@@ -33,17 +33,20 @@ const DashboardHeader = ({
     onNotificationPress,
     onProfilePress,
 }) => {
+    // Check if the device is a tablet to apply different styles.
     const isTab = isTablet();
     return (
         <>
+            {/* The StatusBar component controls the appearance of the status bar on the device. */}
             <StatusBar
                 backgroundColor={theme.colors.primary.main}
                 barStyle="light-content"
                 translucent={Platform.OS === 'android'}
                 
             />
+            {/* The main container for the header. */}
             <View style={[styles.container, isTab && styles.tabletContainer]}>
-                {/* Left Section */}
+                {/* Left Section: Contains the menu button and the title/subtitle. */}
                 <View style={styles.leftSection}>
                     {showMenu && (
                         <TouchableOpacity
@@ -70,7 +73,7 @@ const DashboardHeader = ({
                         )}
                     </View>
                 </View>
-                {/* Right Section */}
+                {/* Right Section: Contains the notification button and the profile avatar. */}
                 <View style={styles.rightSection}>
                     {showNotifications && (
                         <TouchableOpacity
@@ -84,7 +87,7 @@ const DashboardHeader = ({
                                 size={isTab ? 28 : 24}
                                 color={theme.colors.primary.contrast}
                             />
-                            {/* Notification badge */}
+                            {/* A badge to indicate the number of notifications. */}
                             <View style={styles.notificationBadge}>
                                 <Text style={styles.badgeText}>3</Text>
                             </View>
@@ -109,10 +112,13 @@ const DashboardHeader = ({
         </>
     );
 };
+
+// The StyleSheet for the DashboardHeader component.
 const styles = StyleSheet.create({
     container: {
         backgroundColor: theme.colors.primary.main,
         paddingHorizontal: getAdaptivePadding(),
+        // Add extra padding at the top on Android to account for the translucent status bar.
         paddingTop: Platform.OS === 'ios' ? hp('6%') : StatusBar.currentHeight,
         paddingBottom: theme.spacing.md,
         flexDirection: 'row',
@@ -189,4 +195,5 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
 });
+
 export default DashboardHeader;

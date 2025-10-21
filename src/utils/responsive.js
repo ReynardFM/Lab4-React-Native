@@ -8,6 +8,7 @@ import { Dimensions, PixelRatio, Platform } from 'react-native';
 
 /**
  * Gets the current window dimensions.
+ * This is a wrapper around Dimensions.get('window') to ensure we are always getting the latest dimensions.
  * @returns {{width: number, height: number}} The current window dimensions.
  */
 export const getCurrentDimensions = () => {
@@ -16,6 +17,7 @@ export const getCurrentDimensions = () => {
 
 /**
  * Calculates a percentage of the screen width.
+ * This is useful for creating elements that scale with the screen size.
  * @param {number} percentage - The percentage of the screen width to calculate.
  * @returns {number} The calculated width in pixels.
  */
@@ -27,6 +29,7 @@ export const wp = (percentage) => {
 
 /**
  * Calculates a percentage of the screen height.
+ * This is useful for creating elements that scale with the screen size.
  * @param {number} percentage - The percentage of the screen height to calculate.
  * @returns {number} The calculated height in pixels.
  */
@@ -38,6 +41,8 @@ export const hp = (percentage) => {
 
 /**
  * Calculates a responsive font size based on the screen width.
+ * This ensures that fonts are scaled appropriately on different screen sizes.
+ * The scaling is based on a base width of 640 pixels.
  * @param {number} size - The base font size.
  * @returns {number} The calculated responsive font size.
  */
@@ -48,12 +53,14 @@ export const rf = (size) => {
     if (Platform.OS === 'ios') {
         return Math.round(PixelRatio.roundToNearestPixel(newSize));
     } else {
+        // Android fonts often appear slightly larger, so we subtract 2 to compensate.
         return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2;
     }
 };
 
 /**
  * Subscribes to orientation changes and calls a callback function when the orientation changes.
+ * This allows components to react to orientation changes.
  * @param {function} callback - The callback function to call on orientation change.
  * @returns {object} The event subscription.
  */
@@ -66,6 +73,7 @@ export const listenForOrientationChange = (callback) => {
 };
 
 // Pre-calculated responsive spacing values.
+// Using pre-calculated values can improve performance by avoiding repeated calculations.
 export const spacing = {
     xs: wp('1%'),
     sm: wp('2%'),
@@ -86,6 +94,7 @@ export const typography = {
 };
 
 // Breakpoints for different device sizes.
+// These are used to determine the device type.
 export const breakpoints = {
     small: 360,
     medium: 400,
@@ -96,6 +105,7 @@ export const breakpoints = {
 
 /**
  * Determines the device type based on the screen width.
+ * This is used to apply different layouts for different devices.
  * @param {number} [width] - An optional width to use for calculation.
  * @returns {string} The device type (e.g., 'smallPhone', 'tablet').
  */
@@ -104,6 +114,7 @@ export const getDeviceType = (width = null) => {
     const currentWidth = width || screenWidth;
     
     // Use the smaller dimension to determine device type for better reliability on orientation change.
+    // This prevents a tablet in portrait mode from being detected as a phone.
     const minDimension = Math.min(currentWidth, screenHeight);
     
     if (minDimension < breakpoints.tablet) {
@@ -120,6 +131,7 @@ export const getDeviceType = (width = null) => {
 
 /**
  * Calculates the number of grid columns based on the device type and orientation.
+ * This is the core of the responsive grid system.
  * @param {number} [width] - An optional width to use for calculation.
  * @returns {number} The number of columns for the grid.
  */
@@ -129,14 +141,7 @@ export const getGridColumns = (width = null) => {
     const isLandscape = currentWidth > screenHeight;
     const deviceType = getDeviceType(currentWidth);
     
-    // This log is for debugging purposes to see how the grid columns are calculated.
-    console.log('Grid Columns Calculation:', {
-        width: currentWidth,
-        height: screenHeight,
-        isLandscape,
-        deviceType
-    });
-    
+    // The number of columns changes based on the device type and orientation.
     switch (deviceType) {
         case 'smallPhone':
         case 'mediumPhone':
@@ -153,6 +158,7 @@ export const getGridColumns = (width = null) => {
 
 /**
  * Checks if the device is a tablet.
+ * This is a helper function to easily check the device type.
  * @param {number} [width] - An optional width to use for calculation.
  * @returns {boolean} True if the device is a tablet, false otherwise.
  */
@@ -163,6 +169,7 @@ export const isTablet = (width = null) => {
 
 /**
  * Gets an adaptive padding value based on the device type.
+ * This allows for more consistent spacing across different devices.
  * @returns {number} The adaptive padding value.
  */
 export const getAdaptivePadding = () => {

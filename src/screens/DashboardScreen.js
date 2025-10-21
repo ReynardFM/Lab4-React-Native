@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
     ScrollView,
     View,
@@ -24,9 +24,9 @@ import { isTablet, listenForOrientationChange } from '../utils/responsive';
  * It also features pull-to-refresh functionality and handles orientation changes.
  */
 const DashboardScreen = () => {
-    // State for the pull-to-refresh indicator
+    // State for the pull-to-refresh indicator.
     const [refreshing, setRefreshing] = useState(false);
-    // State to track the current device orientation
+    // State to track the current device orientation.
     const [orientation, setOrientation] = useState('portrait');
 
     // Sample data for the dashboard widgets. In a real app, this would come from an API.
@@ -78,6 +78,7 @@ const DashboardScreen = () => {
     useEffect(() => {
         // This effect subscribes to orientation changes to update the UI accordingly.
         const subscription = listenForOrientationChange(() => {
+            // When the orientation changes, we toggle the orientation state.
             setOrientation(prev => prev === 'portrait' ? 'landscape' : 'portrait');
         });
 
@@ -86,7 +87,7 @@ const DashboardScreen = () => {
             setOrientation(orientation);
         });
 
-        // Unsubscribe from the event listener when the component unmounts.
+        // Unsubscribe from the event listener when the component unmounts to prevent memory leaks.
         return () => {
             subscription?.remove();
         };
@@ -98,7 +99,7 @@ const DashboardScreen = () => {
      */
     const handleRefresh = async () => {
         setRefreshing(true);
-        // Simulate a network request
+        // Simulate a network request with a 2-second delay.
         setTimeout(() => {
             // Update the data (e.g., with new values from an API)
             setDashboardData(prev => ({
@@ -114,10 +115,11 @@ const DashboardScreen = () => {
 
     /**
      * Renders a single statistic widget.
+     * This function is memoized with useCallback to prevent unnecessary re-renders of the ResponsiveGrid.
      * @param {object} item - The data for the statistic widget.
      * @returns {React.ReactElement} The rendered StatisticWidget component.
      */
-    const renderStatisticWidget = (item) => (
+    const renderStatisticWidget = useCallback((item) => (
         <StatisticWidget
             title={item.title}
             value={item.value}
@@ -128,9 +130,11 @@ const DashboardScreen = () => {
             trendValue={item.trendValue}
             onPress={() => Alert.alert(item.title, `Detailed view for ${item.title}`)}
         />
-    );
+    ), []);
 
+    // Check if the device is a tablet to apply different styles.
     const isTab = isTablet();
+    // Check if the device is in landscape mode.
     const isLandscape = orientation === 'landscape';
 
     return (
@@ -154,13 +158,13 @@ const DashboardScreen = () => {
                         tintColor={theme.colors.primary.main}
                     />
                 }>
-                {/* Renders the grid of statistic widgets */}
+                {/* Renders the grid of statistic widgets using the ResponsiveGrid component. */}
                 <ResponsiveGrid
                     data={dashboardData.statistics}
                     renderItem={renderStatisticWidget}
                     spacing={theme.spacing.md}                    
                 />
-                {/* Renders the quick actions widget */}
+                {/* Renders the quick actions widget. */}
                 <View style={styles.widgetsContainer}>
                     <BaseWidget
                         title="Quick Actions"
@@ -200,6 +204,7 @@ const DashboardScreen = () => {
         </SafeAreaView>
     );
 };
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -239,4 +244,5 @@ const styles = StyleSheet.create({
         color: theme.colors.neutral.gray700,
     },
 });
+
 export default DashboardScreen;

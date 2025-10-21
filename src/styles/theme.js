@@ -1,5 +1,12 @@
 import { Platform } from 'react-native';
-import { wp, hp, rf, spacing, typography } from '../utils/responsive';
+import { wp, hp, rf, spacing as responsiveSpacing, typography as responsiveTypography } from '../utils/responsive';
+
+/**
+ * @file This file defines the visual theme for the application.
+ * It includes color palettes, shadow styles, border radii, and common component styles.
+ */
+
+// The main color palette for the application.
 export const colors = {
     primary: {
         main: '#3498db',
@@ -44,6 +51,9 @@ export const colors = {
         tertiary: '#e9ecef',
     },
 };
+
+// Platform-specific shadow styles.
+// This uses Platform.select to provide different styles for iOS and Android.
 export const shadows = {
     small: {
         ...Platform.select({
@@ -85,6 +95,8 @@ export const shadows = {
         }),
     },
 };
+
+// Consistent border radii for use throughout the application.
 export const borderRadius = {
     small: 4,
     medium: 8,
@@ -92,25 +104,28 @@ export const borderRadius = {
     xlarge: 16,
     round: 50,
 };
+
+// The main theme object that combines all the theme properties.
+// This object is imported into components to provide consistent styling.
 export const theme = {
     colors,
-    spacing,
-    typography,
+    spacing: responsiveSpacing,
+    typography: responsiveTypography,
     shadows,
     borderRadius,
-    // Common component styles
+    // Common component styles that can be reused across the application.
     card: {
         backgroundColor: colors.background.primary,
         borderRadius: borderRadius.large,
-        padding: spacing.md,
-        margin: spacing.sm,
+        padding: responsiveSpacing.md,
+        margin: responsiveSpacing.sm,
         ...shadows.medium,
     },
     button: {
         primary: {
             backgroundColor: colors.primary.main,
-            paddingVertical: spacing.md,
-            paddingHorizontal: spacing.lg,
+            paddingVertical: responsiveSpacing.md,
+            paddingHorizontal: responsiveSpacing.lg,
             borderRadius: borderRadius.medium,
             alignItems: 'center',
             justifyContent: 'center',
@@ -120,8 +135,8 @@ export const theme = {
             backgroundColor: 'transparent',
             borderWidth: 2,
             borderColor: colors.primary.main,
-            paddingVertical: spacing.md,
-            paddingHorizontal: spacing.lg,
+            paddingVertical: responsiveSpacing.md,
+            paddingHorizontal: responsiveSpacing.lg,
             borderRadius: borderRadius.medium,
             alignItems: 'center',
             justifyContent: 'center',
@@ -130,11 +145,11 @@ export const theme = {
     text: {
         primary: {
             color: colors.neutral.gray800,
-            fontSize: typography.body,
+            fontSize: responsiveTypography.body,
         },
         secondary: {
             color: colors.neutral.gray600,
-            fontSize: typography.body,
+            fontSize: responsiveTypography.body,
         },
         heading: {
             color: colors.neutral.gray900,

@@ -29,18 +29,23 @@ const StatisticWidget = ({
     trendValue,
     onPress,
 }) => {
+    // Check if the device is a tablet to apply different styles.
     const isTab = isTablet();
+    // Determine if the trend is positive (up) or negative (down).
     const isPositiveTrend = trend === 'up';
+    // Set the color of the trend indicator based on whether it is positive or negative.
     const trendColor = isPositiveTrend
         ? theme.colors.semantic.success
         : theme.colors.semantic.error;
     return (
+        // The BaseWidget component provides the card-like container and the header.
         <BaseWidget
             title={title}
             icon={icon}
             iconColor={iconColor}
             onPress={onPress}
             showArrow={!!onPress}>
+            {/* The content of the widget is passed as children to the BaseWidget. */}
             <View style={styles.statisticContainer}>
                 {/* Main Value */}
                 <Text style={[styles.value, isTab && styles.tabletValue]}>
@@ -70,6 +75,7 @@ const StatisticWidget = ({
         </BaseWidget>
     );
 };
+
 const styles = StyleSheet.create({
     statisticContainer: {
         alignItems: 'center',
@@ -104,4 +110,5 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
 });
+
 export default StatisticWidget;

@@ -7,6 +7,7 @@ import { isTablet } from '../../utils/responsive';
 /**
  * A foundational, reusable widget component that provides a consistent card-like structure.
  * It includes a header with an optional icon and title, and a content area.
+ * This component is designed to be extended by other, more specific widgets.
  *
  * @param {object} props - The component's properties.
  * @param {string} props.title - The title displayed in the widget's header.
@@ -28,7 +29,10 @@ const BaseWidget = ({
     headerStyle,
     showArrow = false,
 }) => {
+    // Check if the device is a tablet to apply different styles.
     const isTab = isTablet();
+
+    // The main content of the widget.
     const content = (
         <View style={[styles.container, isTab && styles.tabletContainer, style]}>
             {/* Widget Header */}
@@ -54,12 +58,14 @@ const BaseWidget = ({
                     />
                 )}
             </View>
-            {/* Widget Content */}
+            {/* Widget Content: This is where the child components will be rendered. */}
             <View style={styles.content}>
                 {children}
             </View>
         </View>
     );
+
+    // If an onPress function is provided, wrap the content in a TouchableOpacity to make it pressable.
     if (onPress) {
         return (
             <TouchableOpacity
@@ -71,8 +77,11 @@ const BaseWidget = ({
             </TouchableOpacity>
         );
     }
+
+    // If no onPress function is provided, just return the content.
     return content;
 };
+
 const styles = StyleSheet.create({
     container: {
         ...theme.card,
@@ -108,4 +117,6 @@ const styles = StyleSheet.create({
         flex: 1,
     },
 });
-export default BaseWidget;
+
+// Memoize the component to prevent unnecessary re-renders.
+export default React.memo(BaseWidget);
