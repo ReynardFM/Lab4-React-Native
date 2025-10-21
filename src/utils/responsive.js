@@ -75,22 +75,22 @@ export const listenForOrientationChange = (callback) => {
 // Pre-calculated responsive spacing values.
 // Using pre-calculated values can improve performance by avoiding repeated calculations.
 export const spacing = {
-    xs: wp('1%'),
-    sm: wp('2%'),
-    md: wp('4%'),
-    lg: wp('6%'),
-    xl: wp('8%'),
+    xs: wp('2%'),
+    sm: wp('4%'),
+    md: wp('8%'),
+    lg: wp('12%'),
+    xl: wp('16%'),
 };
 
 // Pre-calculated responsive typography sizes.
 export const typography = {
-    h1: rf(28),
-    h2: rf(24),
-    h3: rf(20),
-    h4: rf(18),
-    body: rf(16),
-    caption: rf(14),
-    small: rf(12),
+    h1: rf(56),
+    h2: rf(48),
+    h3: rf(40),
+    h4: rf(36),
+    body: rf(32),
+    caption: rf(28),
+    small: rf(24),
 };
 
 // Breakpoints for different device sizes.
