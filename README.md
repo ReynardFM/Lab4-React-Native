@@ -40,17 +40,29 @@ responsive design patterns, and platform-specific styling in React Native.
 ## Project Structure
 
 src/
+
 ├── components/
+
 │ ├── DashboardHeader.js
+
 │ ├── ResponsiveGrid.js
+
 │ └── widgets/
+
 │ ├── BaseWidget.js
+
 │ └── StatisticWidget.js
+
 ├── screens/
+
 │ └── DashboardScreen.js
+
 ├── styles/
+
 │ └── theme.js
+
 └── utils/
+
  └── responsive.js
 
 ## Responsive Breakpoints
