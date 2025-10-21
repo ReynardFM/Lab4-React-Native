@@ -87,10 +87,6 @@ src/
 - Memoization applied where necessary
 - Native driver enabled for animations
 
-## Screenshots
-
-See `/screenshots` folder for app images on different devices.
-
 ## Known Issues
 
 - Application may experience minor lag or stuttering during screen orientation changes or when scrolling through a large number of widgets.
